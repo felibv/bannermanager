@@ -1,0 +1,30 @@
+Version 0.8 (by lafondadebaco)
+===========
+Improved/changed features:
+[*] Changed id name to avoid adblockers. Now CSS and ID are called bnrmanager
+[*] Active value is checked as default
+[*] Tested on version 1.5.2.0 >> http://demo.eliveryvirtual.com/
+
+Version 0.7 (by lafondadebaco)
+===========
+Added Features:
+[+] Banners can now be included in Home Hook
+
+Improved/changed features:
+[*] Group all templates (Right + Left) in one bannermanager_all.tpl for future enhancements and to avoid code replication
+[*] Added alt attribute to tag <IMG> to support W3C
+[*] Added title attribute to tag <A> to support W3C
+[*] Hooks sepparated into different tabs {left / right / homes}
+[*] Added banner separated in a hidden form
+
+Fixed bugs:
+
+[-] Fixed ID tag of <div> to avoid replication
+[-] Fixed open banner in new window
+[-] Fixed styling for margin on new created ID bannermannager-right
+[-] Fixed creation of banner when file type was not an image
+
+Version 0.6 (by lafondadebaco)
+===========
+
+[-] Initial version
