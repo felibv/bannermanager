@@ -1,5 +1,5 @@
-{literal}
-<SCRIPT language="javascript">
+<script language="javascript">
+	{literal}
 	function deleteBanner(bnr, question) {
 		if (confirm(question)){
 			document.deleteBannerForm.bannerDelete.value = bnr;
@@ -12,9 +12,9 @@
 		document.getElementById('addBanner').style.display = '';
 		document.getElementById('addBanner').scrollIntoView();
 	}
-	</SCRIPT>
+	{/literal}
+</script>
 <script type="text/javascript" src="../js/jquery/jquery.tablednd_0_5.js"></script>
-{/literal}
 <script type="text/javascript" src="../js/admin-dnd.js"></script>
 <br/><br/>
 <!--Add new banner -->
@@ -42,7 +42,7 @@
     <br />
 	<label for="banner_block_id">{l s='Block space' mod='bannermanager'}:</label>
     <div class="margin-form">
-    	<input type="Radio" id="banner_block_id_left"  value="1" name="banner_block_id" />
+    	<input type="Radio" id="banner_block_id_left" checked="checked" value="1" name="banner_block_id" />
         <label for="banner_block_id_left" class="t">{l s='Left' mod='bannermanager'}</label>
         <br />
     	<input type="Radio" id="banner_block_id_right" value="2" name="banner_block_id" />

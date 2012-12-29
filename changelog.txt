@@ -1,3 +1,11 @@
+Version 0.9 (by FeliBV)
+===========
+[*] CSS included in the hookHeader, for compatibility with CCC.
+[*] Removed several global variables
+[*] The name of the Banner's folder is now an object attribute
+[*] Improved handling paths
+[*] Files are UTF-8 coded
+
 Version 0.8 (by lafondadebaco)
 ===========
 Improved/changed features:

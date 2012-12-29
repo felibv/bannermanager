@@ -1,0 +1,30 @@
+<?php
+
+global $_MODULE;
+$_MODULE = array();
+$_MODULE['<{bannermanager}prestashop>bannermanager_151476c737da334c03a3a03160ae6a50'] = 'Vous permet d\'ajouter des bannières que vous le souhaitez sur les deux colonnes de droite ou de gauche, et aussi de la page d\'accueil';
+$_MODULE['<{bannermanager}prestashop>bannermanager_37c97bfdb963b42e6f846b15390f24cc'] = 'Ce module vous permet d\'inclure des bannières autant que vous le souhaitez.';
+$_MODULE['<{bannermanager}prestashop>bannermanager_65e16d4011bf512d0997a66ed9171f5a'] = 'Vous pouvez télécharger, commande, activer ou désactiver des bannières nombreux et sélectionnez si vous les voulez dans les colonnes de droite ou de gauche.';
+$_MODULE['<{bannermanager}prestashop>bannermanager_d668c619dfa774308bfaf7e1a89ec69b'] = 'Ajouter une nouvelle bannière.';
+$_MODULE['<{bannermanager}prestashop>bannermanager_5c763e79d31a2552331d4b6bda3086bb'] = 'Configuration générale';
+$_MODULE['<{bannermanager}prestashop>bannermanager_62b6c45e9492c98e855ddb7c7928d6a7'] = 'Vos bannières sont sepparated dans différents onglets, là-haut';
+$_MODULE['<{bannermanager}prestashop>bannermanager_d1217b931c136fd70dbfdc4a37f4e074'] = 'Vous pouvez toujours ajouter une nouvelle bannière du haut cliquant sur l\'icône «+».';
+$_MODULE['<{bannermanager}prestashop>bannermanager_d30fd8171d865e8448fefea3802dde33'] = 'Apporter une contribution au développement';
+$_MODULE['<{bannermanager}prestashop>bannermanager_40fe383c46bd9d65e87849bdeeea9512'] = 'Avez-vous trouvé ce module est-il utile?';
+$_MODULE['<{bannermanager}prestashop>bannermanager_fabd621c5f9cd77508d264b07bfe77f2'] = 'Voulez-vous contribuer à l\'améliorer?';
+$_MODULE['<{bannermanager}prestashop>bannermanager_41c795089cefd4feb728427fcab12001'] = 'Pour profiter de ces améliorations, cliquer sur l\'image et vous me payez un ou plusieurs cafés.';
+$_MODULE['<{bannermanager}prestashop>bannermanager_126123dc812ce11c67b2c2722db66d72'] = 'Je ne veux pas connaître les améliorations';
+$_MODULE['<{bannermanager}prestashop>bannermanager_01f8ee076dfae55343a76a6e46770132'] = 'Oui, je sais que les améliorations';
+$_MODULE['<{bannermanager}prestashop>bannermanager_f76b9802187a2736adf6adf9b7d05d27'] = 'Bannières gauche';
+$_MODULE['<{bannermanager}prestashop>bannermanager_a18dce73334972310d4878d9c41c928d'] = 'Bannières droit';
+$_MODULE['<{bannermanager}prestashop>bannermanager_e5ee2d14734d780729736ab4b41b1b5f'] = 'Bannières Accueil';
+$_MODULE['<{bannermanager}prestashop>bannermanager_a60852f204ed8028c1c58808b746d115'] = 'Ok';
+$_MODULE['<{bannermanager}prestashop>bannermanager_725c3526b165e94d4aaf06d48e6b854f'] = 'Bannières à jour avec succès';
+$_MODULE['<{bannermanager}prestashop>bannermanager_048b455cdd3c07374b3924868ca904a7'] = 'Il y avait des problèmes de mise à jour des bannières. ';
+$_MODULE['<{bannermanager}prestashop>bannermanager_9e89bd376fbce7810ebea2daaa4a257e'] = 'Type de fichier incorrect.';
+$_MODULE['<{bannermanager}prestashop>bannermanager_07b8c09e490f7afbdcfa9cd5bfcfd4a9'] = 'Une erreur s\'est produite lors de l\'envoi d\'images. ';
+$_MODULE['<{bannermanager}prestashop>bannermanager_6d9acfefd14630e61cf93e84b728fa39'] = 'Erreur de création de bannière.';
+$_MODULE['<{bannermanager}prestashop>bannermanager_74d6bf3e003914fd0e4eab86bc4d4047'] = 'Erreur de création de bannière sur la base de données. ';
+$_MODULE['<{bannermanager}prestashop>bannermanager_bcfdb21d824ae2ed8deae5f30968e8f6'] = 'Une erreur s\'est produite lors de la création de bannières.';
+$_MODULE['<{bannermanager}prestashop>bannermanager_a08c37ffa22a4b53dda5e5d0daed32d5'] = 'Bannière avec succès supprimé';
+$_MODULE['<{bannermanager}prestashop>bannermanager_df61abbe1a92fe918ea7dd47ce841387'] = 'Problèmes de supprimer la bannière.';
