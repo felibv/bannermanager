@@ -1,5 +1,16 @@
+Version 0.9.1 (by FeliBV)
+============
+[*] Now work with AdBlock
+[*] Improvements in banners tab
+[*] Clean up code and templates
+
+Added Features:
+[+] View banners with fancybox [BO]
+[+] Image folder move to /img/bnrs
+
 Version 0.9 (by FeliBV)
-===========
+============
+Improved/changed features
 [*] CSS included in the hookHeader, for compatibility with CCC.
 [*] Removed several global variables
 [*] The name of the Banner's folder is now an object attribute

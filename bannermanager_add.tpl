@@ -14,8 +14,6 @@
 	}
 	{/literal}
 </script>
-<script type="text/javascript" src="../js/jquery/jquery.tablednd_0_5.js"></script>
-<script type="text/javascript" src="../js/admin-dnd.js"></script>
 <br/><br/>
 <!--Add new banner -->
 <div style="display:none;" id="addBanner" name="addBanner">
@@ -25,7 +23,7 @@
     <span>{l s='Provide the following information to create a new banner' mod='bannermanager'}</span><br /><br />
     <label for="banner_description">{l s='Banner description' mod='bannermanager'}:</label>
     <div class="margin-form">
-        <input type="text" name="banner_description" size="80" />
+        <input type="text" name="banner_description" size="30" />
     </div>
     <br />
 	<label for="banner_link">{l s='Banner link' mod='bannermanager'}:</label>

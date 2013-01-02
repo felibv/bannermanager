@@ -3,7 +3,7 @@
 * Banner Manager Module - Allows to create multiple banners and
 *  	sort them for both right and left column
 *
-*  @author Gastón Franzé; v0.9 FeliBV
+*  @author Gastón Franzé; v0.9.1 FeliBV
 *  @link https://github.com/felibv/bannermanager
 *  @version  Release: $Revision: 121227 $
 *  @tested prestashop 1.4.9.0
@@ -23,7 +23,7 @@ class bannermanager extends Module
 	{
 		$this->name = 'bannermanager';
 		$this->tab = 'advertising_marketing';
-		$this->version = '0.9';
+		$this->version = '0.9.1';
 		$this->need_instance = 0;
 
 		parent::__construct();
@@ -32,7 +32,8 @@ class bannermanager extends Module
 		$this->description = $this->l('Allows you to add as many banners as you want on both right or left columns, and also from home page');
 
 		$this->_errors = array();
-		$this->banners_path = $this->_path.'banners/';
+		$this->banners_path = _PS_IMG_.'bnrs/';
+		$this->img_path = _PS_IMG_DIR_.'bnrs/';
 	}
 
 	function install()
@@ -42,11 +43,15 @@ class bannermanager extends Module
 				OR !$this->registerHook('rightColumn')
 				OR !$this->registerHook('home')
 				OR !$this->registerHook('header')
+				OR !$this->registerHook('backOfficeHeader')
 				OR $this->_createTables() == false
 			)
 			return false;
+			
+			if (!file_exists($this->img_path))
+				if (!@mkdir($this->img_path, 0777))
+					return false;
 		return true;
-
 	}
 
 	function uninstall()
@@ -101,110 +106,23 @@ class bannermanager extends Module
 		} else
 			$output .= "<br />";
 
-		$output .= $this->_displayBannerManagerHeader();
-		$output .= $this->_setConfigurationForm();
-		$output .= $this->_displayBannersAdd();
-		return $output;
+		return $output.$this->_displayBannerManager();
 	}
 
-	/**
-	*	_displayBannerManagerHeader()
-	*	Called in Back Office during Module Configuration
-	*/
-	private function _displayBannerManagerHeader()
-	{
-		$modDesc 	= $this->l('This module allows you to include as many banners as you like.');
-		$modStatus	= $this->l('You can upload, order, activate or deactivate as many banners and select if you want them in the right or left columns.');
-		$output = "<img src='../modules/bannermanager/bannermanager.gif' style='float:left; margin-right:15px;' />
-						<b>{$modDesc}</b><br /><br />
-						{$modStatus}<br /><br /><br /><br />";
-		//	Add banner link
-		$output .= '<a href="" onclick="addBanner();return false;"><img border="0" src="../img/admin/add.gif"> '.$this->l('Add a new banner.').'</a>';
-		return $output;
-	}
-
-	/**
-	*	_setConfigurationForm()
-	*	Called upon successful module configuration validation
-	*/
-	private function _setConfigurationForm()
-	{
-		$output = '
-		<div method="post" action="'.$_SERVER['REQUEST_URI'].'">
-			<script type="text/javascript">
-				var pos_select = '.(($tab = intval(Tools::getValue('tabs'))) ? $tab : '0').';
-			</script>
-			<script type="text/javascript" src="'._PS_BASE_URL_._PS_JS_DIR_.'tabpane.js"></script>
-			<link type="text/css" rel="stylesheet" href="'._PS_BASE_URL_._PS_CSS_DIR_.'tabpane.css" />
-			<input type="hidden" name="tabs" id="tabs" value="0" />
-			<div class="tab-pane" id="tab-pane-1" style="width:100%;margin:10px 0 0">
-				<div class="tab-page" id="step1">
-					<h4 class="tab">'.$this->l('General Configuration').'</h4>
-					<span>'.$this->l('Your banners are sepparated in different tabs, up there').'</span>
-					<br /><br />
-					<span>'.$this->l('You can always add a new banner from the top clicking on the "+" icon.').'</span>
-					<br /><br />
-					<fieldset>
-					<legend><img src="'.$this->_path.'logo.gif" />'.$this->l('Make a contribution to the development').'</legend>
-					<form action="https://www.paypal.com/cgi-bin/webscr" method="post" style="margin:auto;" target="_blank">
-					<input type="hidden" name="cmd" value="_s-xclick">
-					<input type="hidden" name="hosted_button_id" value="95PNPV4LSD7UW">
-					<div style="float:left;margin:0 20px;">
-					<b>'.$this->l('Did you find this module is useful?').'</b><br />
-					<b>'.$this->l('Want to contribute to improve it?').'</b><br />
-					<br /><br />
-					<input type="hidden" name="on0" value="Upcoming improvements?">'.$this->l('To enjoy the improvements, click on the image and you pay me one or more coffees.').'<br />
-					<select name="os0">
-						<option value="No">'.$this->l('I do not want to know the improvements ').' </option>
-						<option value="Yes">'.$this->l('Yes, I know the improvements ').' </option>
-					</select>
-					</div>
-					<input type="image" src="'.$this->_path.'coffee_btn.jpg" border="0" name="submit" alt="PayPal. La forma rapida y segura de pagar en Internet.">
-					<img alt="" border="0" src="https://www.paypalobjects.com/es_ES/i/scr/pixel.gif" width="1" height="1">
-					</form></fieldset>
-				</div>
-				<div class="tab-page" id="step2">
-					<h4 class="tab">'.$this->l('Left Banners').'</h4>
-					'.$this->_displayBannersTab('1', 'Left').'
-				</div>
-				<div class="tab-page" id="step3">
-					<h4 class="tab">'.$this->l('Right Banners').'</h4>
-					'.$this->_displayBannersTab('2', 'Right').'
-				</div>
-				<div class="tab-page" id="step4">
-					<h4 class="tab">'.$this->l('Home Banners').'</h4>
-					'.$this->_displayBannersTab('3', 'Home').'
-				</div>
-			</div>
-			<div class="clear"></div>
-			<script type="text/javascript">
-			function loadTab(id){}
-			setupAllTabs();
-			</script>
-		</div>
-		';
-		return $output;
-	}
-
-	private function _displayBannersTab($block, $title)
+	private function _displayBannerManager()
 	{
 		global $smarty, $currentIndex;
 
 		$smarty->assign(array(
 			'banners_path'	=> $this->banners_path,
-			'banners' 		=> $this->getBanners($block),
-			'block'			=> $block,
-			'title'			=> $title,
+			'banners_1'		=> $this->getBanners('1'),
+			'banners_2'		=> $this->getBanners('2'),
+			'banners_3'		=> $this->getBanners('3'),
 			'leftBanners'	=> '2',
 			'currentIndex'	=> $currentIndex,
 			'rand'			=> rand()
 		));
-		return $this->display(__FILE__, 'bannermanager_form.tpl');
-	}
-
-	private function _displayBannersAdd()
-	{
-		return $this->display(__FILE__, 'bannermanager_add.tpl');
+		return $this->display( dirname(__FILE__), 'bannermanager_bo.tpl');
 	}
 
 	/**
@@ -239,7 +157,8 @@ class bannermanager extends Module
 			}
 		}
 		// Banners add submit
-		if (isset($_POST['addBannerSubmit'])){
+		if (isset($_POST['addBannerSubmit']))
+		{
 			$bnr['description'] = Tools::getValue('banner_description');
 			$bnr['image_link'] = Tools::getValue('banner_link');
 			$bnr['image_name'] = $_FILES['banner_image']['name'];
@@ -253,7 +172,7 @@ class bannermanager extends Module
 				Configuration::set('PS_IMAGE_GENERATION_METHOD', 1);
 				$name = $_FILES['banner_image']['name'];
 				$ext = strtolower(substr($name, strrpos($name, ".") + 1));
-				$path = _PS_ROOT_DIR_.$this->banners_path. basename( $_FILES['banner_image']['name']);
+				$path = $this->img_path.basename( $_FILES['banner_image']['name']);
 				if (!($ext == 'png' || $ext == 'gif' || $ext == 'jpg' || $ext == 'jpeg' || $ext == 'bmp'))
 					$errors .= $this->displayError($this->l('Incorrect file type.'));
 					
@@ -293,7 +212,7 @@ class bannermanager extends Module
 			'banners' => $this->getBanners('3'),
 			'banners_path' => $this->banners_path
 		));
-		return $this->display(__FILE__, 'bannermanager_all.tpl');
+		return $this->display( dirname(__FILE__), 'bannermanager.tpl');
 	}
 
 	function hookRightColumn($params)
@@ -304,7 +223,7 @@ class bannermanager extends Module
 			'banners' => $this->getBanners('2'),
 			'banners_path' => $this->banners_path
 		));
-		return $this->display(__FILE__, 'bannermanager_all.tpl');
+		return $this->display( dirname(__FILE__), 'bannermanager.tpl');
 	}
 
 	function hookLeftColumn($params)
@@ -315,7 +234,7 @@ class bannermanager extends Module
 			'banners' => $this->getBanners('1'),
 			'banners_path' => $this->banners_path
 		));
-		return $this->display(__FILE__, 'bannermanager_all.tpl');
+		return $this->display( dirname(__FILE__), 'bannermanager.tpl');
 	}
 	
 	public function hookHeader()
@@ -323,6 +242,28 @@ class bannermanager extends Module
 		Tools::addCSS(($this->_path).'bnrmanager.css', 'all');
 	}
 	
+	public function hookBackOfficeHeader()
+	{
+		if ( _PS_VERSION_ < '1.5' )
+			return '<script type="text/javascript" src="'.__PS_BASE_URI__.'js/jquery/jquery-ui-1.8.10.custom.min.js"></script>
+				<script type="text/javascript" src="'.__PS_BASE_URI__.'js/jquery/jquery.fancybox-1.3.4.js"></script>
+				<link type="text/css" rel="stylesheet" href="'.__PS_BASE_URI__.'css/jquery.fancybox-1.3.4.css" />
+				<script type="text/javascript">			
+					var pos_select = \'0\';
+					function loadTab(id)
+					{};
+				</script>
+				<script type="text/javascript" src="'.__PS_BASE_URI__.'js/tabpane.js"></script>
+				<link type="text/css" rel="stylesheet" href="'.__PS_BASE_URI__.'css/tabpane.css" />
+			';
+		else
+		{
+			$this->context->controller->addJquery();
+			$this->context->controller->addJQueryPlugin('fancybox');
+		}
+		return '';
+	}
+
 	/**
 	*	getBanners()
 	*	Returns the banners from the database
@@ -361,10 +302,13 @@ class bannermanager extends Module
 	*/
 	public function saveBanners($bnrs)
 	{
-		foreach ($bnrs AS $bnr){
+		$idx = 0;
+		foreach ($bnrs AS $bnr)
+		{
+			$idx++;
 			$db = Db::getInstance();
 			//update existing record
-			$sql = 'UPDATE `'._DB_PREFIX_.'banner_manager` SET `active` = "'.$bnr['active'].'", `description` = "'.$bnr['description'].'", `image_name` = "'.$bnr['image_name'].'", `image_link` = "'.$bnr['image_link'].'" , `block_id` = "'.$bnr['block_id'].'", `order` = "'.$bnr['order'].'", `open_blank` = "'.$bnr['blank'].'"  WHERE id_banner_manager = '.$bnr['id'];
+			$sql = 'UPDATE `'._DB_PREFIX_.'banner_manager` SET `active` = "'.$bnr['active'].'", `description` = "'.$bnr['description'].'", `image_name` = "'.$bnr['image_name'].'", `image_link` = "'.$bnr['image_link'].'" , `block_id` = "'.$bnr['block_id'].'", `order` = "'.$idx.'", `open_blank` = "'.$bnr['blank'].'" WHERE id_banner_manager = '.$bnr['id'];
 			$result = $db->Execute($sql);
 			if (!$result)
 				return false;
